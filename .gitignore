@@ -1,0 +1,9 @@
+Binaries/
+Intermediate/
+Saved/
+DerivedDataCache/
+*.opensdf
+*.sdf
+*.sln
+*.v12.suo
+*.sln.GhostDoc.xml
