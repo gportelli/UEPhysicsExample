@@ -8,3 +8,5 @@ An in-game debug panel shows the current render frame rate and the period and am
 With the default parameters, the oscillation will explode when the substepping is disabled.
 
 The cube component registers also a secondary post-physics tick function.
+
+![example 1](https://raw.githubusercontent.com/gportelli/UEPhysicsExample/master/Demo.gif)
