@@ -1,4 +1,6 @@
 # Unreal Engine 4 Physics Example
+*Unreal Engine version: 4.15*
+
 An Unreal Engine sample project showing how to use substepping.<br>
 This example is part of this article: http://www.aclockworkberry.com/unreal-engine-substepping/
 
