@@ -1,5 +1,6 @@
 # Unreal Engine 4 Physics Example
-An Unreal Engine sample project showing how to use substepping.
+An Unreal Engine sample project showing how to use substepping.<br>
+This example is part of this article: http://www.aclockworkberry.com/unreal-engine-substepping/
 
 This project contains a simple actor with a cube static mesh component. 
 The cube component listens for substep ticks and simulates a damped spring force model at each substep.
