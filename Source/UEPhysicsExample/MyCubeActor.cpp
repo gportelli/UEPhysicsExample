@@ -10,10 +10,6 @@
 AMyCubeActor::AMyCubeActor(const class FObjectInitializer& PCIP)
 	: Super(PCIP)
 {
-	PrimaryActorTick.TickGroup = TG_PrePhysics;
-	PrimaryActorTick.bCanEverTick = true;
-	PrimaryActorTick.bStartWithTickEnabled = true;
-
 	// Init parameters
 	StartVelocity = 1000.0f;
 	KSpring = 100.0f;
@@ -26,22 +22,22 @@ AMyCubeActor::AMyCubeActor(const class FObjectInitializer& PCIP)
 
 	Cube = PCIP.CreateDefaultSubobject <UMyStaticMeshComponent>(this, TEXT("Cube"));
 	Cube->SetStaticMesh(CubeMesh.Object);
-	Cube->AttachTo(root);
+	Cube->AttachToComponent(root, FAttachmentTransformRules::KeepRelativeTransform);
 
 	DebugPanel = PCIP.CreateDefaultSubobject <UTextRenderComponent>(this, TEXT("Debug panel"));
 	DebugPanel->SetRelativeLocation(FVector(0, -100, 0));
-	DebugPanel->AttachTo(root);
+	DebugPanel->AttachToComponent(root, FAttachmentTransformRules::KeepRelativeTransform);
 	DebugPanel->SetXScale(2);
 	DebugPanel->SetYScale(2);
 	DebugPanel->SetText(FText::FromString(TEXT("")));
 	DebugPanel->SetTextRenderColor(FColor(0, 0, 0));
 }
 
-void AMyCubeActor::Tick(float DeltaTime)
+void AMyCubeActor::Tick(float DeltaSeconds)
 {
-	Super::Tick(DeltaTime);
+	Super::Tick(DeltaSeconds);
 
-	UpdateMotionAnalysis(DeltaTime);
+	UpdateMotionAnalysis(DeltaSeconds);
 }
 
 void AMyCubeActor::UpdateMotionAnalysis(float DeltaTime)
@@ -72,6 +68,13 @@ void AMyCubeActor::UpdateMotionAnalysis(float DeltaTime)
 
 	lastDir = currDir;
 	lastH = currH;
+}
+
+void AMyCubeActor::BeginPlay()
+{
+	PrimaryActorTick.bCanEverTick = true;
+
+	Super::BeginPlay();
 }
 
 #undef LOCTEXT_NAMESPACE

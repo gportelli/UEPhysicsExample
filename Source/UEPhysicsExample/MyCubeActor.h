@@ -14,8 +14,6 @@ public:
 	// Sets default values for this actor's properties
 	AMyCubeActor(const class FObjectInitializer& PCIP);
 
-	virtual void Tick(float DeltaSeconds) override;
-
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Physics Parameters")
 		float StartVelocity;
 
@@ -30,10 +28,16 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Physics Parameters")
 		bool bEnableLogging;
 
+	virtual void Tick(float DeltaSeconds) override;
+
 private:
 	void UpdateMotionAnalysis(float DeltaTime);
 
 	class UMyStaticMeshComponent *Cube;
 	UTextRenderComponent *DebugPanel;
+
+protected:
+	virtual void BeginPlay() override;
+
 };
 

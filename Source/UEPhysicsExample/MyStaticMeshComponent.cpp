@@ -14,7 +14,7 @@ void FMySecondaryTickFunction::ExecuteTick(
 	ENamedThreads::Type CurrentThread,
 	const FGraphEventRef& MyCompletionGraphEvent)
 {
-	if (Target && !Target->HasAnyFlags(RF_PendingKill | RF_Unreachable))
+	if (Target && !Target->IsPendingKill() && !Target->IsUnreachable())
 	{
 		FScopeCycleCounterUObject ActorScope(Target);
 		Target->TickPostPhysics(DeltaTime /* * Target->CustomTimeDilation*/, TickType, *this);
@@ -28,8 +28,6 @@ FString FMySecondaryTickFunction::DiagnosticMessage()
 
 UMyStaticMeshComponent::UMyStaticMeshComponent()
 {
-	bWantsBeginPlay = true;
-
 	PrimaryComponentTick.TickGroup = TG_PrePhysics;
 	PrimaryComponentTick.bCanEverTick = true;
 	PrimaryComponentTick.bStartWithTickEnabled = true;
@@ -98,7 +96,7 @@ void UMyStaticMeshComponent::TickComponent(float DeltaTime, ELevelTick TickType,
 	else DoPhysics(DeltaTime, false);
 }
 
-void UMyStaticMeshComponent::SubstepTick(float DeltaTime, FBodyInstance* BodyInstance)
+void UMyStaticMeshComponent::SubstepTick(float DeltaTime, FBodyInstance* InBodyInstance)
 {
 	if(owner->bEnableLogging)
 		UE_LOG(LogClass, Log, TEXT("%d UMyStaticMeshComponent::SubstepTick DeltaTime : %f, Z : %f"), FrameCount, DeltaTime, GetCurrentLocation().Z);

@@ -19,6 +19,15 @@ struct FMySecondaryTickFunction : public FTickFunction
 	UEPHYSICSEXAMPLE_API virtual FString DiagnosticMessage() override;
 };
 
+template<>
+struct TStructOpsTypeTraits<FMySecondaryTickFunction> : public TStructOpsTypeTraitsBase
+{
+	enum
+	{
+		WithCopy = false
+	};
+};
+
 UCLASS(ClassGroup = (Custom), meta = (BlueprintSpawnableComponent))
 class UEPHYSICSEXAMPLE_API UMyStaticMeshComponent : public UStaticMeshComponent
 {

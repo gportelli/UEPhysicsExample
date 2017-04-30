@@ -1,6 +1,6 @@
 {
 	"FileVersion": 3,
-	"EngineAssociation": "4.10",
+	"EngineAssociation": "4.15",
 	"Category": "",
 	"Description": "",
 	"Modules": [
@@ -11,12 +11,6 @@
 			"AdditionalDependencies": [
 				"Engine"
 			]
-		}
-	],
-	"Plugins": [
-		{
-			"Name": "FMODStudio",
-			"Enabled": true
 		}
 	]
 }
