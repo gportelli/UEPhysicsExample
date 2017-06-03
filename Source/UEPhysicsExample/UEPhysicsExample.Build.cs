@@ -4,8 +4,8 @@ using UnrealBuildTool;
 
 public class UEPhysicsExample : ModuleRules
 {
-	public UEPhysicsExample(TargetInfo Target)
-	{
+	public UEPhysicsExample(ReadOnlyTargetRules Target) : base(Target)
+    {
 		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "PhysX", "APEX" });
 
 		PrivateDependencyModuleNames.AddRange(new string[] {  });

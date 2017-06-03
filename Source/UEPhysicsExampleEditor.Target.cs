@@ -5,21 +5,10 @@ using System.Collections.Generic;
 
 public class UEPhysicsExampleEditorTarget : TargetRules
 {
-	public UEPhysicsExampleEditorTarget(TargetInfo Target)
-	{
+	public UEPhysicsExampleEditorTarget(TargetInfo Target) : base(Target)
+    {
 		Type = TargetType.Editor;
-	}
 
-	//
-	// TargetRules interface.
-	//
-
-	public override void SetupBinaries(
-		TargetInfo Target,
-		ref List<UEBuildBinaryConfiguration> OutBuildBinaryConfigurations,
-		ref List<string> OutExtraModuleNames
-		)
-	{
-		OutExtraModuleNames.AddRange( new string[] { "UEPhysicsExample" } );
-	}
+        ExtraModuleNames.AddRange(new string[] { "UEPhysicsExample" });
+    }
 }

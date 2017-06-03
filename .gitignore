@@ -7,3 +7,4 @@ DerivedDataCache/
 *.sln
 *.v12.suo
 *.sln.GhostDoc.xml
+.vs
