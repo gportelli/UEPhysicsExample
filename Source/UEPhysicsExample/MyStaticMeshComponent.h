@@ -20,7 +20,7 @@ struct FMySecondaryTickFunction : public FTickFunction
 };
 
 template<>
-struct TStructOpsTypeTraits<FMySecondaryTickFunction> : public TStructOpsTypeTraitsBase
+struct TStructOpsTypeTraits<FMySecondaryTickFunction> : public TStructOpsTypeTraitsBase2<FMySecondaryTickFunction>
 {
 	enum
 	{
