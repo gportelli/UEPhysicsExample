@@ -55,7 +55,7 @@ private:
 	class AMyCubeActor *owner;
 	int32 FrameCount;
 
-	physx::PxRigidBody* PRigidBody;
+	const FPhysicsActorHandle* PActorHandle;
 
 	FORCEINLINE FVector  GetCurrentLocation();
 	FORCEINLINE FRotator GetCurrentRotation();
