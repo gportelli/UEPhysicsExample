@@ -54,7 +54,7 @@ void UMyStaticMeshComponent::BeginPlay()
 		SecondaryComponentTick.RegisterTickFunction(owner->GetLevel());
 	}
 
-	PRigidBody = GetBodyInstance()->GetPxRigidBody_AssumesLocked();
+	PActorHandle = &GetBodyInstance()->GetPhysicsActorHandle();
 
 	SetSimulatePhysics(true);
 	SetEnableGravity(false);
@@ -113,7 +113,7 @@ void UMyStaticMeshComponent::DoPhysics(float DeltaTime, bool InSubstep)
 	float force = -(CurrError * owner->KSpring + Velocity * owner->Damping);
 
 	if (InSubstep) {
-		PRigidBody->addForce(PxVec3(0.0f, 0.0f, force), physx::PxForceMode::eFORCE, true);
+		FPhysicsInterface::AddForce_AssumesLocked(*PActorHandle, FVector(0.0f, 0.f, force));
 	}
 	else {
 		AddForce(FVector(0.0f, 0.0f, force));
@@ -144,21 +144,20 @@ void UMyStaticMeshComponent::TickPostPhysics(
 }
 
 FVector UMyStaticMeshComponent::GetCurrentLocation() {
-	PxTransform PTransform = PRigidBody->getGlobalPose();
+	PxTransform PTransform = PActorHandle->SyncActor->getGlobalPose();
 	return FVector(PTransform.p.x, PTransform.p.y, PTransform.p.z);
 }
 
 FRotator UMyStaticMeshComponent::GetCurrentRotation() {
-	PxTransform PTransform = PRigidBody->getGlobalPose();
+	PxTransform PTransform = PActorHandle->SyncActor->getGlobalPose();
 	return FRotator(FQuat(PTransform.q.x, PTransform.q.y, PTransform.q.z, PTransform.q.w));
 }
 
 FVector UMyStaticMeshComponent::GetCurrentAngularVelocity() {
-	PxVec3 PAngVelocity = PRigidBody->getAngularVelocity();
-	return FMath::RadiansToDegrees(FVector(PAngVelocity.x, PAngVelocity.y, PAngVelocity.z));
+	FVector PAngVelocity = FPhysicsInterface::GetAngularVelocity_AssumesLocked(*PActorHandle);
+	return FMath::RadiansToDegrees(PAngVelocity);
 }
 
 FVector UMyStaticMeshComponent::GetCurrentVelocity() {
-	PxVec3 PVelocity = PRigidBody->getLinearVelocity();
-	return FVector(PVelocity.x, PVelocity.y, PVelocity.z);
+	return FPhysicsInterface::GetLinearVelocity_AssumesLocked(*PActorHandle);
 }
