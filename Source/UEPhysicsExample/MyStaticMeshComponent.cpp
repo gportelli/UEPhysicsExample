@@ -113,7 +113,7 @@ void UMyStaticMeshComponent::DoPhysics(float DeltaTime, bool InSubstep)
 	float force = -(CurrError * owner->KSpring + Velocity * owner->Damping);
 
 	if (InSubstep) {
-		FPhysicsInterface::AddForce_AssumesLocked(*PActorHandle, FVector(0.0f, 0.f, force));
+		FPhysicsInterface::AddImpulse_AssumesLocked(*PActorHandle, FVector(0.0f, 0.f, force) * DeltaTime);
 	}
 	else {
 		AddForce(FVector(0.0f, 0.0f, force));
